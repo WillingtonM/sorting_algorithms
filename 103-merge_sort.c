@@ -15,29 +15,30 @@ void merge_sort(int *array, size_t size);
  * @cpy: Copy of array
  * @mid: Middle position
  * @first: initial position
+ * Return: void
  */
 void merge(int *array, int size, int first, int mid, int *cpy)
 {
-	int i, j, k;
+	int x, y, k;
 
 	print_left_right(array, size, first, mid);
 
-	i = first;
-	j = mid;
+	k = first;
+	y = mid;
+	x = first;
 
 	printf("[Done]: ");
-	k = first;
 	while (k < size)
 	{
-		if (i < mid && (j >= size || array[i] <= array[j]))
+		if (x < mid && (y >= size || array[x] <= array[y]))
 		{
-			cpy[k] = array[i];
-			i++;
+			cpy[k] = array[x];
+			x++;
 		}
 		else
 		{
-			cpy[k] = array[j];
-			j++;
+			cpy[k] = array[y];
+			y++;
 		}
 		if (k < size - 1)
 			printf("%d, ", cpy[k]);
@@ -53,6 +54,7 @@ void merge(int *array, int size, int first, int mid, int *cpy)
  * @size: Size of second array
  * @first: Initial position
  * @mid: Middle position
+ * Return: void
  */
 void print_left_right(int *array, int size, int first, int mid)
 {
@@ -83,57 +85,60 @@ void print_left_right(int *array, int size, int first, int mid)
 }
 
 /**
- * mergeSort - array separator
+ * mergeSort - Array separator
  * @cpy: Copy of array
- * @first: initial position
- * @size: size of original  array
- * @array: original array
+ * @first: Initial position
+ * @size: Size of original  array
+ * @array: Original array
+ * Return: void
  */
 void mergeSort(int *cpy, int first, int size, int *array)
 {
-	int mid;
+	int ms_mid;
 
 	if (size - first < 2)
 		return;
 
-	mid = (size + first) / 2;
+	ms_mid = (size + first) / 2;
 
-	mergeSort(array, first, mid, cpy);
-	mergeSort(array, mid, size, cpy);
+	mergeSort(array, first, ms_mid, cpy);
+	mergeSort(array, ms_mid, size, cpy);
 
-	merge(cpy, size, first, mid, array);
+	merge(cpy, size, first, ms_mid, array);
 }
 
 /**
  * merge_sort - create partition and copy
- * @array: array
- * @size : array size
+ * @array: Array
+ * @size : Array size
+ * Return: void
  */
 void merge_sort(int *array, size_t size)
 {
-	int *cpy;
+	int *c_copy;
 
-	cpy = malloc(sizeof(int) * size - 1);
+	c_copy = malloc(sizeof(int) * size - 1);
 
-	if (cpy == NULL)
+	if (c_copy == NULL)
 		return;
 
-	copy_array(array, cpy, size);
+	copy_array(array, c_copy, size);
 
-	mergeSort(cpy, 0, size, array);
-	free(cpy);
+	mergeSort(c_copy, 0, size, array);
+	free(c_copy);
 }
 
 /**
- * copy_array - copy array of int
- * @arr: array src
- * @cpy: array dest
+ * copy_array - Copy array of int
+ * @arr: Array src
+ * @cpy: Array dest
  * @size : array size
+ * Return: void
  */
 void copy_array(int *arr, int *cpy, int size)
 {
-	int i;
+	int x;
 
-	for (i = 0; i < (int)size; i++)
-		cpy[i] = arr[i];
+	for (x = 0; x < (int)size; x++)
+		cpy[x] = arr[x];
 }
